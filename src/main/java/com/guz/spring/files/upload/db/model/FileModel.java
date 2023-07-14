@@ -8,8 +8,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name = "imagenes")
-public class Img_DB {
+@Table(name = "file")
+public class FileModel {
 
 	@Id
 	// @GeneratedValue(generator = "uuid")
@@ -29,14 +29,15 @@ public class Img_DB {
 	private byte[] data;
 	@CreationTimestamp
 	@Column(name = "created_at", updatable = false)
-	private Date created_at;
+	private Date createdAt;
 	@UpdateTimestamp
-	private Date updated_at;
+	private Date updatedAt;
 
-	public Img_DB() {}
+	public FileModel() {
+	}
 
-	public Img_DB(Long id, String name, String title, String description, String type, byte[] data, Date created_at,
-			Date updated_at) {
+	public FileModel(Long id, String name, String title, String description, String type, byte[] data, Date createdAt,
+			Date updatedAt) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -44,8 +45,8 @@ public class Img_DB {
 		this.description = description;
 		this.type = type;
 		this.data = data;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 	}
 
 	public Long getId() {
@@ -96,20 +97,20 @@ public class Img_DB {
 		this.data = data;
 	}
 
-	public Date getCreated_at() {
-		return created_at;
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public Date getUpdated_at() {
-		return updated_at;
+	public Date getUpdatedAt() {
+		return updatedAt;
 	}
 
-	public void setUpdated_at(Date updated_at) {
-		this.updated_at = updated_at;
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 	}
-	
+
 }

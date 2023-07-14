@@ -3,13 +3,13 @@ package com.guz.spring.files.upload.db.message;
 import org.springframework.web.multipart.MultipartFile;
 
 //esta clase representa la estructura de la respuesta http y todos los campos del body
-public class ResponseText {
+public class MultipartResponse {
 
 	private String title;
 	private String description;
 	private MultipartFile image;
 
-	public ResponseText(String title, String description, MultipartFile image) {
+	public MultipartResponse(String title, String description, MultipartFile image) {
 
 		this.title = title;
 		this.description = description;
