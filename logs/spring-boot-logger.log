@@ -1,0 +1,52 @@
+2023-07-18 17:53:39,801 INFO [main] org.springframework.boot.StartupInfoLogger : Starting SpringBootCrudImagenesApplication using Java 17.0.7 on ZCO-35V98C3 with PID 30088 (C:\Users\gmillanr\OneDrive - NTT DATA EMEAL\Documentos\git\Crud-Img_backend\target\classes started by Administrator in C:\Users\gmillanr\OneDrive - NTT DATA EMEAL\Documentos\git\Crud-Img_backend)
+2023-07-18 17:53:39,810 INFO [main] org.springframework.boot.SpringApplication : No active profile set, falling back to default profiles: default
+2023-07-18 17:53:40,499 INFO [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-18 17:53:40,560 INFO [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 52 ms. Found 1 JPA repository interfaces.
+2023-07-18 17:53:41,095 INFO [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8080 (http)
+2023-07-18 17:53:41,106 INFO [main] org.apache.juli.logging.DirectJDKLog : Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-18 17:53:41,106 INFO [main] org.apache.juli.logging.DirectJDKLog : Starting service [Tomcat]
+2023-07-18 17:53:41,106 INFO [main] org.apache.juli.logging.DirectJDKLog : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2023-07-18 17:53:41,203 INFO [main] org.apache.juli.logging.DirectJDKLog : Initializing Spring embedded WebApplicationContext
+2023-07-18 17:53:41,204 INFO [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1349 ms
+2023-07-18 17:53:41,443 INFO [main] org.hibernate.jpa.internal.util.LogHelper : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-18 17:53:41,500 INFO [main] org.hibernate.Version : HHH000412: Hibernate ORM core version 5.4.33
+2023-07-18 17:53:41,644 INFO [main] org.hibernate.annotations.common.reflection.java.JavaReflectionManager : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-07-18 17:53:41,748 INFO [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Starting...
+2023-07-18 17:53:41,895 INFO [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Start completed.
+2023-07-18 17:53:41,910 INFO [main] org.hibernate.dialect.Dialect : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2023-07-18 17:53:42,484 INFO [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-18 17:53:42,492 INFO [main] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-18 17:53:42,847 WARN [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-07-18 17:53:42,967 INFO [main] springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-07-18 17:53:43,195 INFO [main] org.apache.juli.logging.DirectJDKLog : Starting ProtocolHandler ["http-nio-8080"]
+2023-07-18 17:53:43,233 INFO [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-18 17:53:43,234 INFO [main] springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper : Context refreshed
+2023-07-18 17:53:43,257 INFO [main] springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-07-18 17:53:43,282 INFO [main] springfox.documentation.spring.web.scanners.ApiListingReferenceScanner : Scanning for api listing references
+2023-07-18 17:53:43,417 INFO [main] org.springframework.boot.StartupInfoLogger : Started SpringBootCrudImagenesApplication in 4.049 seconds (JVM running for 4.998)
+2023-07-18 17:54:22,268 INFO [main] org.springframework.boot.StartupInfoLogger : Starting SpringBootCrudImagenesApplication using Java 17.0.7 on ZCO-35V98C3 with PID 41144 (C:\Users\gmillanr\OneDrive - NTT DATA EMEAL\Documentos\git\Crud-Img_backend\target\classes started by Administrator in C:\Users\gmillanr\OneDrive - NTT DATA EMEAL\Documentos\git\Crud-Img_backend)
+2023-07-18 17:54:22,272 INFO [main] org.springframework.boot.SpringApplication : No active profile set, falling back to default profiles: default
+2023-07-18 17:54:22,929 INFO [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-07-18 17:54:22,983 INFO [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 1 JPA repository interfaces.
+2023-07-18 17:54:23,430 INFO [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8080 (http)
+2023-07-18 17:54:23,439 INFO [main] org.apache.juli.logging.DirectJDKLog : Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-18 17:54:23,439 INFO [main] org.apache.juli.logging.DirectJDKLog : Starting service [Tomcat]
+2023-07-18 17:54:23,439 INFO [main] org.apache.juli.logging.DirectJDKLog : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2023-07-18 17:54:23,519 INFO [main] org.apache.juli.logging.DirectJDKLog : Initializing Spring embedded WebApplicationContext
+2023-07-18 17:54:23,519 INFO [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1207 ms
+2023-07-18 17:54:23,671 INFO [main] org.hibernate.jpa.internal.util.LogHelper : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-07-18 17:54:23,715 INFO [main] org.hibernate.Version : HHH000412: Hibernate ORM core version 5.4.33
+2023-07-18 17:54:23,833 INFO [main] org.hibernate.annotations.common.reflection.java.JavaReflectionManager : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-07-18 17:54:23,925 INFO [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Starting...
+2023-07-18 17:54:24,049 INFO [main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Start completed.
+2023-07-18 17:54:24,066 INFO [main] org.hibernate.dialect.Dialect : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2023-07-18 17:54:24,594 INFO [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-07-18 17:54:24,602 INFO [main] org.springframework.orm.jpa.AbstractEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-07-18 17:54:24,955 WARN [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-07-18 17:54:25,070 INFO [main] springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-07-18 17:54:25,286 INFO [main] org.apache.juli.logging.DirectJDKLog : Starting ProtocolHandler ["http-nio-8080"]
+2023-07-18 17:54:25,329 INFO [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer : Tomcat started on port(s): 8080 (http) with context path ''
+2023-07-18 17:54:25,330 INFO [main] springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper : Context refreshed
+2023-07-18 17:54:25,351 INFO [main] springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-07-18 17:54:25,376 INFO [main] springfox.documentation.spring.web.scanners.ApiListingReferenceScanner : Scanning for api listing references
+2023-07-18 17:54:25,503 INFO [main] org.springframework.boot.StartupInfoLogger : Started SpringBootCrudImagenesApplication in 3.635 seconds (JVM running for 4.433)

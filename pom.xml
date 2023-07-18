@@ -9,8 +9,8 @@
 		<version>2.5.8</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.guz.spring.files.upload.db</groupId>
-	<artifactId>spring-boot-upload-files-database</artifactId>
+	<groupId>com.guz</groupId>
+	<artifactId>FileUploadDatabase</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-boot-upload-files-database</name>
 	<description>Demo project for Spring Boot</description>

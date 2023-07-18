@@ -39,7 +39,7 @@
 	<!-- LOG por defecto para todos los paquetes a partir del nivel 'INFO' y
 	superiores. -->
 	<root level="info">
-		<appender-ref ref="Console" />
+		<appender-ref ref="RollingFile" />
 	</root>
 
 	<!-- LOG para paquetes 'net.atopecode.*' a partir del nivel 'TRACE' y
