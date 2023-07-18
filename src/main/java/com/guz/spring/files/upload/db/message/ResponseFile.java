@@ -3,7 +3,7 @@ package com.guz.spring.files.upload.db.message;
 import java.util.Date;
 
 public class ResponseFile {
-	
+
 	private Long id;
 	private String name;
 	private String title;
@@ -11,23 +11,9 @@ public class ResponseFile {
 	private String url;
 	private String type;
 	private long size;
-	private Date created_at;
-	private Date updated_at;
+	private Date createdAt;
+	private Date updatedAt;
 	
-	public ResponseFile(Long id, String name, String title, String description, String url, String type, long size,
-			Date created_at, Date updated_at) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.title = title;
-		this.description = description;
-		this.url = url;
-		this.type = type;
-		this.size = size;
-		this.created_at = created_at;
-		this.updated_at = updated_at;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -84,22 +70,20 @@ public class ResponseFile {
 		this.size = size;
 	}
 
-	public Date getCreated_at() {
-		return created_at;
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public Date getUpdated_at() {
-		return updated_at;
+	public Date getUpdatedAt() {
+		return updatedAt;
 	}
 
-	public void setUpdated_at(Date updated_at) {
-		this.updated_at = updated_at;
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 	}
-	
-	
-	
+
 }

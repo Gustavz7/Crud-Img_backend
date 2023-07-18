@@ -7,13 +7,13 @@ public class MultipartResponse {
 
 	private String title;
 	private String description;
-	private MultipartFile image;
+	private MultipartFile file;
 
-	public MultipartResponse(String title, String description, MultipartFile image) {
-
+	public MultipartResponse(String title, String description, MultipartFile file) {
+		super();
 		this.title = title;
 		this.description = description;
-		this.image = image;
+		this.file = file;
 	}
 
 	public String getTitle() {
@@ -32,12 +32,12 @@ public class MultipartResponse {
 		this.description = description;
 	}
 
-	public MultipartFile getImage() {
-		return image;
+	public MultipartFile getFile() {
+		return file;
 	}
 
-	public void setImage(MultipartFile image) {
-		this.image = image;
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 
 }

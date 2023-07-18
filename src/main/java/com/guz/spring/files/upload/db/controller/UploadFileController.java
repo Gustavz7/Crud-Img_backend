@@ -1,39 +1,40 @@
 package com.guz.spring.files.upload.db.controller;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.guz.spring.files.upload.db.message.MultipartResponse;
 import com.guz.spring.files.upload.db.message.ResponseFile;
 import com.guz.spring.files.upload.db.message.ResponseFiles;
 import com.guz.spring.files.upload.db.message.ResponseMessage;
-import com.guz.spring.files.upload.db.message.MultipartResponse;
 import com.guz.spring.files.upload.db.model.FileModel;
-import com.guz.spring.files.upload.db.service.ImgService;
-
-import org.slf4j.Logger;
+import com.guz.spring.files.upload.db.service.dao.FileDAOService;
+import com.guz.spring.files.upload.db.utils.UploadFileUtils;
 
 /*
  * 
  * 
  * 
  * */
-@Controller
+@RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 
 public class UploadFileController {
@@ -45,9 +46,22 @@ public class UploadFileController {
 	private FileModel fileDetails;
 	ResponseEntity<ResponseFile> response;
 	@Autowired
-	private ImgService localJpaService;
+	private FileDAOService localJpaService;
 	@Value("${spring.servlet.multipart.max-file-size}")
 	private String maxFileSize;
+
+	@GetMapping("api/file/all")
+	public ResponseEntity<List<ResponseFiles>> getPaginatedFiles() {
+		logger.info("Obteniendo todos los archivos disponibles...");
+		List<ResponseFiles> files = localJpaService.getAllFiles().map(fileElement -> {
+			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("api/files/src/")
+					.path(fileElement.getId().toString()).toUriString();
+			return new ResponseFiles(fileElement.getId(), fileElement.getName(), fileElement.getTitle(),
+					fileElement.getDescription(), fileDownloadUri, fileElement.getType(), fileElement.getData().length);
+		}).collect(Collectors.toList());
+		logger.info("Archivos encontrados: {}", files.size());
+		return ResponseEntity.status(HttpStatus.OK).body(files);
+	}
 
 	/**
 	 * return the specified id file with all available details
@@ -59,18 +73,29 @@ public class UploadFileController {
 		response = ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(null);
 
 		try {
+			ResponseFile responseFile = new ResponseFile();
 			fileDetails = localJpaService.getFile(id);
 			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("api/files/src/")
 					.path(fileDetails.getId().toString()).toUriString();
 			Long size = (long) fileDetails.getData().length;
-			ResponseFile responseFile = new ResponseFile(fileDetails.getId(), fileDetails.getName(),
-					fileDetails.getTitle(), fileDetails.getDescription(), fileDownloadUri, fileDetails.getType(), size,
-					fileDetails.getCreatedAt(), fileDetails.getUpdatedAt());
+
+			responseFile.setId(fileDetails.getId());
+			responseFile.setName(fileDetails.getName());
+			responseFile.setTitle(fileDetails.getTitle());
+			responseFile.setDescription(fileDetails.getDescription());
+			responseFile.setUrl(fileDownloadUri);
+			responseFile.setType(fileDetails.getType());
+			responseFile.setSize(size);
+			responseFile.setCreatedAt(fileDetails.getCreatedAt());
+			responseFile.setUpdatedAt(fileDetails.getUpdatedAt());
+
 			response = ResponseEntity.ok()
 					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDetails.getName() + "\"")
 					.body(responseFile);
+		} catch (NoSuchElementException e1) {
+			logger.error("No se encontro el archivo con id: {}", id);
 		} catch (Exception e) {
-			logger.error("Ha ocurrido una excepcion al buscar el archivo con id: {}", id);
+			logger.error("Ha ocurrido una excepcion al buscar el archivo con id: {}", id, e);
 		}
 		return response;
 	}
@@ -95,14 +120,15 @@ public class UploadFileController {
 	@PostMapping("api/file/save")
 	public ResponseEntity<String> saveFile(@ModelAttribute MultipartResponse model) {
 
-		logger.info("Guardado archivo: {}", model.getImage().getOriginalFilename());
+		logger.info("Guardando archivo: {}", model.getFile().getOriginalFilename());
 		ResponseEntity<String> saveResponse;
-		MultipartFile file = model.getImage();
+		MultipartFile file = model.getFile();
 
-		if (validateExtension(file.getContentType()) && validateSize(file.getSize())) {
+		if (UploadFileUtils.validateExtension(file.getContentType())
+				&& UploadFileUtils.validateSize(file.getSize(), maxFileSize)) {
 			try {
-				localJpaService.store_data(model.getTitle(), model.getDescription(), model.getImage());
-				message = "Archivo subido correctamente: " + model.getImage().getOriginalFilename();
+				localJpaService.saveEntity(null, model.getTitle(), model.getDescription(), model.getFile());
+				message = "Archivo subido correctamente: " + model.getFile().getOriginalFilename();
 				saveResponse = ResponseEntity.status(HttpStatus.OK).body(message);
 				logger.info(message);
 			} catch (Exception e) {
@@ -122,13 +148,14 @@ public class UploadFileController {
 	@PostMapping("api/file/edit/{fileId}/{multipartResponse}")
 	public ResponseEntity<ResponseMessage> updateFile(@PathVariable int fileId,
 			@ModelAttribute MultipartResponse multipartResponse) {
-		MultipartFile file = multipartResponse.getImage();
+		MultipartFile file = multipartResponse.getFile();
 
 		ResponseEntity<ResponseMessage> updateResponse;
-		if (validateExtension(file.getContentType()) && validateSize(file.getSize())) {
+		if (UploadFileUtils.validateExtension(file.getContentType())
+				&& UploadFileUtils.validateSize(file.getSize(), maxFileSize)) {
 			try {
-				localJpaService.store_edit((long) fileId, multipartResponse.getTitle(),
-						multipartResponse.getDescription(), multipartResponse.getImage());
+				localJpaService.saveEntity((long) fileId, multipartResponse.getTitle(),
+						multipartResponse.getDescription(), multipartResponse.getFile());
 				message = "Archivo modificado correctamente: " + file.getOriginalFilename();
 				updateResponse = ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
 				logger.info(message);
@@ -147,19 +174,6 @@ public class UploadFileController {
 		return updateResponse;
 	}
 
-	@GetMapping("api/file/all")
-	public ResponseEntity<List<ResponseFiles>> getPaginatedFiles() {
-		logger.info("Obteniendo todos los archivos disponibles...");
-		List<ResponseFiles> files = localJpaService.getAllFiles().map(dbFile -> {
-			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("api/files/src/")
-					.path(dbFile.getId().toString()).toUriString();
-			return new ResponseFiles(dbFile.getId(), dbFile.getName(), dbFile.getTitle(), dbFile.getDescription(),
-					fileDownloadUri, dbFile.getType(), dbFile.getData().length);
-		}).collect(Collectors.toList());
-		logger.info("Archivos encontrados: {}", files.size());
-		return ResponseEntity.status(HttpStatus.OK).body(files);
-	}
-
 	@DeleteMapping(path = "api/file/delete/{id}")
 	public ResponseEntity<ResponseMessage> deleteFile(@PathVariable("id") Long id) {
 		ResponseEntity<ResponseMessage> deleteResponse;
@@ -174,24 +188,5 @@ public class UploadFileController {
 			logger.warn(message);
 		}
 		return deleteResponse;
-	}
-
-	private boolean validateExtension(String extension) {
-		String pattern = extension == null ? "" : extension;
-		return pattern.matches("(?i)image/jpg|image/jpeg|image/png|image/gif");
-	}
-
-	private boolean validateSize(long size) {
-
-		// by default 20MB
-		Long maxSize = 20000L;
-
-		// the max value is recovered from the application.properties file
-		try {
-			maxSize = Long.parseLong(maxFileSize);
-		} catch (Exception e) {
-			logger.error("No se pudo obtener el tamaño definido en properties, usando {} bytes por defecto", maxSize);
-		}
-		return (size > maxSize);
 	}
 }
