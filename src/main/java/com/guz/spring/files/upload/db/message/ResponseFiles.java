@@ -2,7 +2,7 @@ package com.guz.spring.files.upload.db.message;
 
 //esta clase representa la estructura de la respuesta http y todos los campos del body
 public class ResponseFiles {
-	
+
 	private Long id;
 	private String name;
 	private String title;
@@ -10,26 +10,24 @@ public class ResponseFiles {
 	private String url;
 	private String type;
 	private long size;
-	
+
 	public ResponseFiles(Long id, String name, String title, String description, String url, String type, long size) {
-	    this.id = id;
+		this.id = id;
 		this.name = name;
 		this.title = title;
 		this.description = description;
-	    this.url = url;
-	    this.type = type;
-	    this.size = size;
-	  }
-	
+		this.url = url;
+		this.type = type;
+		this.size = size;
+	}
+
 	public Long getId() {
 		return id;
 	}
-	
+
 	/*
-	public void setId(String id) {
-		this.id = id;
-	}
-	*/
+	 * public void setId(String id) { this.id = id; }
+	 */
 	public String getName() {
 		return name;
 	}
@@ -37,7 +35,7 @@ public class ResponseFiles {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getTitle() {
 		return title;
 	}
@@ -45,6 +43,7 @@ public class ResponseFiles {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -52,6 +51,7 @@ public class ResponseFiles {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public String getUrl() {
 		return url;
 	}
@@ -75,6 +75,5 @@ public class ResponseFiles {
 	public void setSize(long size) {
 		this.size = size;
 	}
-	
-	
+
 }

@@ -16,7 +16,7 @@ import com.guz.spring.files.upload.db.repository.FileJpaRepository;
 
 @Service
 public class FileDAOService {
-	
+
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	String fileName;
@@ -28,21 +28,23 @@ public class FileDAOService {
 	private FileJpaRepository fileDBRepository;
 
 	/**
-	 * this function can save and update registers, only must be declared the id if you want to
-	 * update an register*/
+	 * this function can save and update registers, only must be declared the id if
+	 * you want to update an register
+	 */
 	public FileModel saveEntity(Long id, String title, String description, MultipartFile file) {
 		FileModel result = null;
-		fileName = StringUtils.cleanPath(file.getOriginalFilename() != null ? file.getOriginalFilename() : "none");
+		String normalizedName = file.getOriginalFilename();
+		fileName = StringUtils.cleanPath(normalizedName != null ? normalizedName : "file");
 		try {
-			fileModel = new FileModel(id, fileName, title, description, file.getContentType(), file.getBytes(),
-					null, null);
+			fileModel = new FileModel(id, fileName, title, description, file.getContentType(), file.getBytes(), null,
+					null);
 			result = fileDBRepository.save(fileModel);
 		} catch (Exception e) {
 			logger.error("error al guardar: ", e);
 		}
-		
+
 		return result;
-		
+
 	}
 
 	public FileModel getFile(Long id) {
@@ -65,7 +67,7 @@ public class FileDAOService {
 			result = true;
 		} catch (IllegalArgumentException e) {
 			logger.error("Se debe indicar un id valido o no nulo para eliminar el archivo", e);
-		}catch(EmptyResultDataAccessException e1) {
+		} catch (EmptyResultDataAccessException e1) {
 			logger.error("no se puedo borrar el id proporcinado: {}", id);
 		}
 		return result;

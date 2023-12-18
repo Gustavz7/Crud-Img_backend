@@ -13,7 +13,7 @@ public class ResponseFile {
 	private long size;
 	private Date createdAt;
 	private Date updatedAt;
-	
+
 	public Long getId() {
 		return id;
 	}
