@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,8 +46,6 @@ public class UploadFileController {
 	ResponseEntity<ResponseFile> response;
 	@Autowired
 	private FileDAOService localJpaService;
-	@Value("${spring.servlet.multipart.max-file-size}")
-	private String maxFileSize;
 
 	@GetMapping("api/file/all")
 	public ResponseEntity<List<ResponseFiles>> getPaginatedFiles() {
@@ -119,22 +116,26 @@ public class UploadFileController {
 
 	@PostMapping("api/file/save")
 	public ResponseEntity<String> saveFile(@ModelAttribute MultipartResponse model) {
-
-		logger.info("Guardando archivo: {}", model.getFile().getOriginalFilename());
 		ResponseEntity<String> saveResponse;
 		MultipartFile file = model.getFile();
 
-		if (UploadFileUtils.validateExtension(file.getContentType())
-				&& UploadFileUtils.validateSize(file.getSize(), maxFileSize)) {
+		if (file == null) {
+			saveResponse = ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("archivo no adjuntado en el campo [file]");
+			return saveResponse;
+		}
+
+		if (UploadFileUtils.validateExtension(file.getContentType()) && UploadFileUtils.validateSize(file.getSize())) {
 			try {
+				logger.info("Guardando archivo: {}", model.getFile().getOriginalFilename());
 				localJpaService.saveEntity(null, model.getTitle(), model.getDescription(), model.getFile());
 				message = "Archivo subido correctamente: " + model.getFile().getOriginalFilename();
 				saveResponse = ResponseEntity.status(HttpStatus.OK).body(message);
 				logger.info(message);
 			} catch (Exception e) {
-				message = "No se pudo subir el archivo :" + file.getOriginalFilename() + "!";
-				saveResponse = ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
+				String fileName = file.getOriginalFilename();
+				message = "No se pudo subir el archivo :" + fileName + " !";
 				logger.error(message);
+				saveResponse = ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
 			}
 		} else {
 			message = "Extension no admitida: " + file.getContentType() + " en el archivo: "
@@ -151,8 +152,7 @@ public class UploadFileController {
 		MultipartFile file = multipartResponse.getFile();
 
 		ResponseEntity<ResponseMessage> updateResponse;
-		if (UploadFileUtils.validateExtension(file.getContentType())
-				&& UploadFileUtils.validateSize(file.getSize(), maxFileSize)) {
+		if (UploadFileUtils.validateExtension(file.getContentType()) && UploadFileUtils.validateSize(file.getSize())) {
 			try {
 				localJpaService.saveEntity((long) fileId, multipartResponse.getTitle(),
 						multipartResponse.getDescription(), multipartResponse.getFile());
