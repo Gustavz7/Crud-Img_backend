@@ -1,4 +1,4 @@
-package com.guz.spring.files.upload.db.service.dao;
+package com.guz.spring.files.upload.db.service;
 
 import java.util.stream.Stream;
 
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.guz.spring.files.upload.db.interfaces.repository.FileJpaRepository;
 import com.guz.spring.files.upload.db.model.FileModel;
-import com.guz.spring.files.upload.db.repository.FileJpaRepository;
 
 @Service
-public class FileDAOService {
+public class FileService {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 

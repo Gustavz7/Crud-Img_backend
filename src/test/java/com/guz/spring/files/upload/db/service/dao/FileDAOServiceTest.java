@@ -8,8 +8,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import com.guz.spring.files.upload.db.interfaces.repository.FileJpaRepository;
 import com.guz.spring.files.upload.db.model.FileModel;
-import com.guz.spring.files.upload.db.repository.FileJpaRepository;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)

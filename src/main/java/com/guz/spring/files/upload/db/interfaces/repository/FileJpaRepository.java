@@ -1,4 +1,4 @@
-package com.guz.spring.files.upload.db.repository;
+package com.guz.spring.files.upload.db.interfaces.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

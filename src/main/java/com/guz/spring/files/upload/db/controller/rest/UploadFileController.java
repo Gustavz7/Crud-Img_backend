@@ -1,4 +1,4 @@
-package com.guz.spring.files.upload.db.controller;
+package com.guz.spring.files.upload.db.controller.rest;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -25,7 +25,7 @@ import com.guz.spring.files.upload.db.message.ResponseFile;
 import com.guz.spring.files.upload.db.message.ResponseFiles;
 import com.guz.spring.files.upload.db.message.ResponseMessage;
 import com.guz.spring.files.upload.db.model.FileModel;
-import com.guz.spring.files.upload.db.service.dao.FileDAOService;
+import com.guz.spring.files.upload.db.service.FileService;
 import com.guz.spring.files.upload.db.utils.UploadFileUtils;
 
 /*
@@ -45,7 +45,7 @@ public class UploadFileController {
 	private FileModel fileDetails;
 	ResponseEntity<ResponseFile> response;
 	@Autowired
-	private FileDAOService localJpaService;
+	private FileService localJpaService;
 
 	@GetMapping("api/file/all")
 	public ResponseEntity<List<ResponseFiles>> getPaginatedFiles() {
