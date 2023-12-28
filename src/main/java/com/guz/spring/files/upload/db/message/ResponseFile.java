@@ -13,6 +13,7 @@ public class ResponseFile {
 	private long size;
 	private Date createdAt;
 	private Date updatedAt;
+	private byte[] file;
 
 	public Long getId() {
 		return id;
@@ -84,6 +85,14 @@ public class ResponseFile {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public byte[] getFile() {
+		return file;
+	}
+
+	public void setFile(byte[] file) {
+		this.file = file;
 	}
 
 }

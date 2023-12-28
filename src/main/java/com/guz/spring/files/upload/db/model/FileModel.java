@@ -1,5 +1,6 @@
 package com.guz.spring.files.upload.db.model;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -117,6 +118,12 @@ public class FileModel {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public String toString() {
+		return String.format(
+				"FileModel[id=%d, name='%s', title='%s', description='%s', type='%s', data=%s, createdAt='%s', updatedAt='%s']",
+				id, name, title, description, type, Arrays.toString(data), createdAt, updatedAt);
 	}
 
 }

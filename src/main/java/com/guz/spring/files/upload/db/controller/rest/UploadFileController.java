@@ -45,7 +45,7 @@ public class UploadFileController {
 	private FileModel fileDetails;
 	ResponseEntity<ResponseFile> response;
 	@Autowired
-	private FileService localJpaService;
+	private FileService localJpaService = new FileService();
 
 	@GetMapping("api/file/all")
 	public ResponseEntity<List<ResponseFiles>> getPaginatedFiles() {
