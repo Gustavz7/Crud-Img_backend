@@ -1,5 +1,6 @@
 package com.guz.spring.files.upload.db.utils;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,5 +29,13 @@ public class UploadFileUtils {
 			logger.error("No se pudo obtener el tamaño definido en properties, usando {} bytes por defecto", maxSize);
 		}
 		return (size > maxSize);
+	}
+
+	public static Integer simpleFormatFileSize(Integer bytes) {
+		return bytes != null ? bytes / 1000 : 0;
+	}
+
+	public static String formatFileSizeString(Integer bytes) {
+		return FileUtils.byteCountToDisplaySize(bytes);
 	}
 }

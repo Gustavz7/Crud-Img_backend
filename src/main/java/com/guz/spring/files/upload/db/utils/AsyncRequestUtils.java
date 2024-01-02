@@ -9,11 +9,15 @@ import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.DefaultAsyncHttpClientConfig;
 import org.asynchttpclient.Dsl;
 import org.asynchttpclient.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 
 import com.guz.spring.files.upload.db.message.ResponseFile;
 
 public class AsyncRequestUtils {
+	private static final Logger logger = LoggerFactory.getLogger(AsyncRequestUtils.class);
+
 	public static DefaultAsyncHttpClientConfig.Builder clientBuilder = Dsl.config().setConnectTimeout(500);
 	public static final AsyncHttpClient client = Dsl.asyncHttpClient(clientBuilder);
 
@@ -26,9 +30,10 @@ public class AsyncRequestUtils {
 		try {
 			response = whenResponse.get();
 		} catch (InterruptedException e) {
+			logger.error("error en el proceso asincrono", e);
 			Thread.currentThread().interrupt();
 		} catch (ExecutionException e1) {
-			e1.printStackTrace();
+			logger.error("se ha interrumpido el proceso asincrono", e1);
 		}
 		return response;
 	}
@@ -40,8 +45,7 @@ public class AsyncRequestUtils {
 			URL urlObj = new URL(url);
 			fileTitle = urlObj.getHost();
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("url invalida ===> "+url, e);
 			return responseFile;
 		}
 		Response response = get(url);

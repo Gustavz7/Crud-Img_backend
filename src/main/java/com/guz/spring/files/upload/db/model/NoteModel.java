@@ -31,6 +31,9 @@ public class NoteModel {
 	@Column(name = "updatedAt", nullable = false)
 	private Calendar updatedAt;
 
+	public NoteModel() {
+	}
+
 	public NoteModel(String title, String description) {
 		super();
 		this.title = title;

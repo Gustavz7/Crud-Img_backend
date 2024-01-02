@@ -1,6 +1,6 @@
 package com.guz.spring.files.upload.db.model;
 
-import java.util.Arrays;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,6 +13,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.guz.spring.files.upload.db.utils.UploadFileUtils;
 
 @Entity
 @Table(name = "FileModel")
@@ -120,10 +122,21 @@ public class FileModel {
 		this.updatedAt = updatedAt;
 	}
 
+	public String getSimpleCreatedAt() {
+		SimpleDateFormat formatter = new SimpleDateFormat();
+		return formatter.format(createdAt);
+	}
+
+	public String getSimpleUpdatedAt() {
+		SimpleDateFormat formatter = new SimpleDateFormat();
+		return formatter.format(updatedAt);
+	}
+
 	public String toString() {
 		return String.format(
 				"FileModel[id=%d, name='%s', title='%s', description='%s', type='%s', data=%s, createdAt='%s', updatedAt='%s']",
-				id, name, title, description, type, Arrays.toString(data), createdAt, updatedAt);
+				id, name, title, description, type, UploadFileUtils.formatFileSizeString(data.length),
+				getSimpleCreatedAt(), getSimpleUpdatedAt());
 	}
 
 }

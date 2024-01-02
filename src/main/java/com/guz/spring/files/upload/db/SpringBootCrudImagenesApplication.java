@@ -26,7 +26,11 @@ public class SpringBootCrudImagenesApplication {
 		return args -> {
 			// save a few images
 			ResponseFile file = AsyncRequestUtils.getResponsedFile("https://s6.imgcdn.dev/fuwug.md.jpg");
-			FileModel result = repository.save(new FileModel(null, file.getName(), file.getTitle(), "no-description", file.getType(), file.getFile(), null, null));
+			if (file == null) {
+				return;
+			}
+			FileModel result = repository.save(new FileModel(null, file.getName(), file.getTitle(), "no-description",
+					file.getType(), file.getFile(), null, null));
 			log.info("InitDemo - registros iniciales insertados ==> " + result.toString());
 		};
 	}
